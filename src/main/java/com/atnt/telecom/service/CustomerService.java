@@ -7,12 +7,9 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.encrypt.Encryptors;
-import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.atnt.telecom.constants.AppConstants;
 import com.atnt.telecom.dao.repository.CustomerOrderRepository;
 import com.atnt.telecom.dao.repository.CustomerRepository;
 import com.atnt.telecom.model.Customer;
@@ -41,24 +38,24 @@ public class CustomerService {
 		return Objects.nonNull(customer) && passwordEncoder.matches(password, customer.getPassword());
 	}
 
-	public Long registerCustomer(Customer customer) {
+	public String registerCustomer(Customer customer) {
 		String encryptedPwd = passwordEncoder.encode(customer.getPassword());
 		customer.setPassword(encryptedPwd);
 		customer = customerRepository.save(customer);
-		return customer.getId();
+		return customer.getCustomerName();
 	}
 
-	public Long activateCustomerOrder(Long customerId, List<CustomerOrder> orders) {
-		Optional<Customer> option = customerRepository.findById(customerId);
+	public String activateCustomerOrder(String customerName, List<CustomerOrder> orders) {
+		Optional<Customer> option = customerRepository.findById(customerName);
 		if (option.isPresent()) {
-			orders.forEach(order -> order.setCustomerId(customerId));
+			orders.forEach(order -> order.setCustomerName(customerName));
 			List<CustomerOrder> custOrders = customerOrderRepository.saveAll(orders);
-			LOG.info("Customer found With id :: {}, Orders :: {}", customerId, custOrders);
+			LOG.info("Customer found With id :: {}, Orders :: {}", customerName, custOrders);
 		} else {
-			throw new IllegalStateException("Customer Not found with Id ::" + customerId);
+			throw new IllegalStateException("Customer Not found with customerName ::" + customerName);
 		}
 
-		return customerId;
+		return customerName;
 	}
 
 }

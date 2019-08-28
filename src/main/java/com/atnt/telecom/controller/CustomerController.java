@@ -34,13 +34,13 @@ public class CustomerController {
 	}
 
 	@PostMapping("/register")
-	public Long registerCustomer(@RequestBody Customer customer) {
+	public String registerCustomer(@RequestBody Customer customer) {
 		LOG.info("Customer was successfully registered ::Customer Name {}", customer.getCustomerName());
 		return customerService.registerCustomer(customer);
 	}
 
 	@PostMapping("/activateOrder/{customerId}")
-	public Long activateCustomerOrder(@PathVariable Long customerId, @RequestBody CustomerOrder order) {
+	public String activateCustomerOrder(@PathVariable String customerId, @RequestBody CustomerOrder order) {
 		LOG.info("Customer Order was successfully registered ::Customer Name {}", customerId);
 		return customerService.activateCustomerOrder(customerId, Collections.singletonList(order));
 	}

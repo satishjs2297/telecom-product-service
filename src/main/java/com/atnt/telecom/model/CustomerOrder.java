@@ -2,30 +2,21 @@ package com.atnt.telecom.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 
-@Entity
+
 public class CustomerOrder implements Serializable {
 
 	private static final long serialVersionUID = -3770142805983192214L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ORDER_ID", unique = true, nullable = false, length = 20)
 	private Long orderId;
 
-	@Column(name = "ORDER_NAME")
 	private String orderName;
 
-	@Column(name = "PLAN_NAME")
 	private String planName;
 	
-	@Column(name = "CUSTOMER_ID")
-	private Long customerId;
+	private String customerName;
 
 	public String getOrderName() {
 		return orderName;
@@ -51,12 +42,11 @@ public class CustomerOrder implements Serializable {
 		this.orderId = orderId;
 	}
 
-	public Long getCustomerId() {
-		return customerId;
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
-
 }

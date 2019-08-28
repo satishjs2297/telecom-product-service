@@ -2,31 +2,19 @@ package com.atnt.telecom.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 
-@Entity
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1013479834262222490L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CUSTOMER_ID", unique = true, nullable = false, length = 20)
-	private Long id;
-	@Column(name = "PASSWORD")
-	private String password;
-	@Column(name = "CUSTOMER_NAME")
 	private String customerName;
-	@Column(name = "MOBILE_NUMBER")
-	private String mobileNumber;
-	@Column(name = "ADDRESS")
-	private String address;
 
-	// @OneToMany(cascade = CascadeType.ALL)
-	// private List<CustomerOrder> orders;
+	private String password;
+
+	private String mobileNumber;
+
+	private String address;
 
 	public Customer() {
 		// TODO Auto-generated constructor stub
@@ -37,14 +25,6 @@ public class Customer implements Serializable {
 		this.password = password;
 		this.mobileNumber = mobileNumber;
 		this.address = address;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getCustomerName() {
