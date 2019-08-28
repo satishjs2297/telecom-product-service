@@ -3,7 +3,9 @@ package com.atnt.telecom.model;
 import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection ="RechargePlan")
 public class RechargePlan implements Serializable  {
 
 	private static final long serialVersionUID = 4417653390095900654L;

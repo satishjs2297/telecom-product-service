@@ -1,6 +1,7 @@
 package com.atnt.telecom.controller;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,10 +40,10 @@ public class CustomerController {
 		return customerService.registerCustomer(customer);
 	}
 
-	@PostMapping("/activateOrder/{customerId}")
-	public String activateCustomerOrder(@PathVariable String customerId, @RequestBody CustomerOrder order) {
-		LOG.info("Customer Order was successfully registered ::Customer Name {}", customerId);
-		return customerService.activateCustomerOrder(customerId, Collections.singletonList(order));
+	@PostMapping("/activateOrder/{customerName}")
+	public String activateCustomerOrder(@PathVariable String customerName, @RequestBody List<CustomerOrder> orders) {
+		LOG.info("Customer Order was successfully registered ::Customer Name {}", customerName);
+		return customerService.activateCustomerOrder(customerName, orders);
 	}
 
 }
