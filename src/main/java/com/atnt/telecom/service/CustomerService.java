@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.atnt.telecom.constants.AppConstants;
@@ -25,6 +26,9 @@ public class CustomerService {
 	private CustomerOrderRepository customerOrderRepository;
 
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
 	public CustomerService(CustomerRepository customerRepository, CustomerOrderRepository customerOrderRepository) {
 		this.customerRepository = customerRepository;
 		this.customerOrderRepository = customerOrderRepository;
@@ -32,15 +36,13 @@ public class CustomerService {
 
 	public boolean isValidUser(String userName, String password) {
 		LOG.info("is validuser :: ");
-		TextEncryptor encryptor = Encryptors.text(AppConstants.SCRECT_KEY, AppConstants.SALT);
-        String encryptedPwd = encryptor.encrypt(password);
-		Customer customer = customerRepository.getCustomerByCustomerNameAndPassword(userName, encryptedPwd);
-		return Objects.nonNull(customer);
+		Customer customer = customerRepository.getCustomerByCustomerName(userName);
+
+		return Objects.nonNull(customer) && passwordEncoder.matches(password, customer.getPassword());
 	}
 
 	public Long registerCustomer(Customer customer) {
-		TextEncryptor encryptor = Encryptors.text(AppConstants.SCRECT_KEY, AppConstants.SALT);
-		String encryptedPwd = encryptor.encrypt(customer.getPassword());
+		String encryptedPwd = passwordEncoder.encode(customer.getPassword());
 		customer.setPassword(encryptedPwd);
 		customer = customerRepository.save(customer);
 		return customer.getId();

@@ -6,5 +6,5 @@ import com.atnt.telecom.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-	public Customer getCustomerByCustomerNameAndPassword(String customerName, String password);	
+	public Customer getCustomerByCustomerName(String customerName);
 }

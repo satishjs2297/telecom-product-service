@@ -24,9 +24,9 @@ public class Customer implements Serializable {
 	private String mobileNumber;
 	@Column(name = "ADDRESS")
 	private String address;
-	
-	//@OneToMany(cascade = CascadeType.ALL)
-	//private List<CustomerOrder> orders;
+
+	// @OneToMany(cascade = CascadeType.ALL)
+	// private List<CustomerOrder> orders;
 
 	public Customer() {
 		// TODO Auto-generated constructor stub

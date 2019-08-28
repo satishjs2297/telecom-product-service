@@ -16,21 +16,18 @@ import com.atnt.telecom.model.Customer;
 import com.atnt.telecom.model.CustomerOrder;
 import com.atnt.telecom.service.CustomerService;
 
-
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
 	private final static Logger LOG = LoggerFactory.getLogger(CustomerController.class);
 
 	private CustomerService customerService;
-	
-	
+
 	@Autowired
 	public CustomerController(CustomerService customerRegistrationService) {
 		this.customerService = customerRegistrationService;
 	}
-	
-	
+
 	@GetMapping("/login/{userName}/{password}")
 	public Boolean authenticateUser(@PathVariable String userName, @PathVariable String password) {
 		return customerService.isValidUser(userName, password);
@@ -41,10 +38,9 @@ public class CustomerController {
 		LOG.info("Customer was successfully registered ::Customer Name {}", customer.getCustomerName());
 		return customerService.registerCustomer(customer);
 	}
-	
-	
+
 	@PostMapping("/activateOrder/{customerId}")
-	public Long activateCustomerOrder(@PathVariable Long customerId,  @RequestBody CustomerOrder order) {
+	public Long activateCustomerOrder(@PathVariable Long customerId, @RequestBody CustomerOrder order) {
 		LOG.info("Customer Order was successfully registered ::Customer Name {}", customerId);
 		return customerService.activateCustomerOrder(customerId, Collections.singletonList(order));
 	}
