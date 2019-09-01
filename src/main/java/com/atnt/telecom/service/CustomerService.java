@@ -57,6 +57,10 @@ public class CustomerService {
 				order.setCustomerName(customerName);
 				});
 			List<CustomerOrder> custOrders = customerOrderRepository.saveAll(orders);
+
+			Customer customer = option.get();
+			customer.setOrders(orders);
+			customerRepository.save(customer);
 			LOG.info("Customer found With id :: {}, Orders :: {}", customerName, custOrders);
 		} else {
 			throw new IllegalStateException("Customer Not found with customerName ::" + customerName);

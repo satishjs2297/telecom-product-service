@@ -1,6 +1,5 @@
 package com.atnt.telecom.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;

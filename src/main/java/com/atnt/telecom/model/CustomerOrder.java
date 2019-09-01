@@ -19,6 +19,8 @@ public class CustomerOrder implements Serializable {
 	private String planName;
 	
 	private String customerName;
+	
+	private String validity;
 
 	public String getOrderName() {
 		return orderName;
@@ -50,5 +52,13 @@ public class CustomerOrder implements Serializable {
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+
+	public String getValidity() {
+		return validity;
+	}
+
+	public void setValidity(String validity) {
+		this.validity = validity;
 	}
 }
